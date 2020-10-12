@@ -20,9 +20,15 @@ public class UsersController {
 	@Autowired
 	UsersService usrService;
 	
+	@GetMapping("/")
+	public String test() {
+		return new String("End point tested successfully.");
+	}
 	@GetMapping("/{userId}")
 	public ResponseEntity<Object> getUserInfo(@PathVariable("userId") long userId) {
 		logger.info("getUserInfo().."+userId);
 		return ResponseEntity.ok().build();
 	}
+	
+	
 }
