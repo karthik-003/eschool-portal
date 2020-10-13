@@ -1,4 +1,4 @@
-package amk.eschool.utils;
+package amk.eschool.users.utils;
 
 import java.util.Date;
 import java.util.HashMap;
