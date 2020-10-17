@@ -40,7 +40,6 @@ public class UserLoginService implements UserDetailsService{
 	}
 	
 	public AuthenticationResponse authenticate(AuthenticationRequest request) throws Exception {
-		logger.info("UserLoginService::authenticate()--> Start "+request.getUserName()+" && "+request.getPassword());
 		try {
 			authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(request.getUserName(), request.getPassword())
@@ -51,9 +50,7 @@ public class UserLoginService implements UserDetailsService{
 		}
 		
 		final UserDetails usrDetails = loadUserByUsername(request.getUserName());
-		logger.info("UserLoginService::authenticate()--> User Details: "+request.getUserName());
 		final String jwt = jwtUtil.generateToken(usrDetails);
-		logger.info("UserLoginService::authenticate()--> "+request.getUserName());
 		return new AuthenticationResponse(jwt);
 	}
 

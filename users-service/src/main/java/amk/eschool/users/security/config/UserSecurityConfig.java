@@ -8,7 +8,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import amk.eschool.users.security.filter.RequestInterceptor;
 import amk.eschool.users.service.UsersService;
 import amk.eschool.users.utils.JwtUtil;
 import net.bytebuddy.asm.Advice.This;
@@ -17,12 +20,15 @@ import net.bytebuddy.asm.Advice.This;
 @EnableWebSecurity
 public class UserSecurityConfig extends WebSecurityConfigurerAdapter{
 
-	Logger logger = LoggerFactory.getLogger(This.class);
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	UsersService usrService;
 	
 	@Autowired
 	JwtUtil jwtUtil;
+	
+	@Autowired
+	RequestInterceptor interceptor;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -38,10 +44,10 @@ public class UserSecurityConfig extends WebSecurityConfigurerAdapter{
 		.csrf().disable();
 
 		http.headers().frameOptions().disable();
+		http.
+		exceptionHandling().and().sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		
-		http.authorizeRequests().antMatchers("/h2-console/**").permitAll()
-		.and()
-		.authorizeRequests().antMatchers("/users/**").permitAll()
-		.anyRequest().authenticated();
+		http.addFilterBefore(interceptor, UsernamePasswordAuthenticationFilter.class);
 	}
 }

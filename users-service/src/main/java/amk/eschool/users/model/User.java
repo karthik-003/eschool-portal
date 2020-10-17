@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -12,28 +14,34 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name="user_info")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	long userId;
 	
 	String fullName;
 	String gender;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "contact_id", referencedColumnName = "ctctId")
-	ContactInfo ctctInfo;
+	@JoinColumn(name="contact_id",referencedColumnName = "ctctId")
+    ContactInfo ctctInfo;
 	
 	@Column(name="age")
-	String age;
+	int age;
 	@Column(name="date_of_birth")
+	@JsonFormat(pattern="dd-MM-yyyy")
 	Date dateOfBirth;
 	
 	@Column(name="status")
 	int status;
+	@Column(name="user_type")
+	int type;
 	
 	@Column(name="created_dt")
 	Date dateCreated;
@@ -43,6 +51,10 @@ public class User {
 	long createdBy;
 	@Column(name="udpated_by")
 	long updatedBy;
+	
+	@OneToOne
+	@JoinColumn(name="userId",referencedColumnName = "id")
+	UserLoginInfo loginInfo;
 	
 	public long getUserId() {
 		return userId;
@@ -68,10 +80,10 @@ public class User {
 	public void setCtctInfo(ContactInfo ctctInfo) {
 		this.ctctInfo = ctctInfo;
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	public Date getDateOfBirth() {
@@ -109,6 +121,19 @@ public class User {
 	}
 	public void setUpdatedBy(long updatedBy) {
 		this.updatedBy = updatedBy;
+	}
+	
+	public int getType() {
+		return type;
+	}
+	public void setType(int type) {
+		this.type = type;
+	}
+	public UserLoginInfo getLoginInfo() {
+		return loginInfo;
+	}
+	public void setLoginInfo(UserLoginInfo loginInfo) {
+		this.loginInfo = loginInfo;
 	}
 	@Override
 	public String toString() {

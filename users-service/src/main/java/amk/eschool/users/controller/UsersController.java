@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import amk.eschool.users.model.User;
 import amk.eschool.users.service.UsersService;
 
 @RestController
@@ -27,6 +30,12 @@ public class UsersController {
 	@GetMapping("/{userId}")
 	public ResponseEntity<Object> getUserInfo(@PathVariable("userId") long userId) {
 		logger.info("getUserInfo().."+userId);
+		return ResponseEntity.ok().build();
+	}
+	
+	@PostMapping("/addUser/{userType}")
+	public ResponseEntity<Object> registerUser(@PathVariable("userType")int userType,@RequestBody User usr){
+		usrService.addUser(userType, usr);
 		return ResponseEntity.ok().build();
 	}
 	

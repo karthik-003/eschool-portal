@@ -3,6 +3,8 @@ package amk.eschool.users.model;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -10,6 +12,7 @@ import javax.persistence.OneToOne;
 public class ContactInfo {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	long ctctId;
 	
 	@Column(name="email")
