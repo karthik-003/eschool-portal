@@ -27,9 +27,8 @@ public class UsersController {
 	public String test() {
 		return new String("End point tested successfully.");
 	}
-	@GetMapping("/{userId}")
+	@GetMapping("/info/")
 	public ResponseEntity<Object> getUserInfo(@PathVariable("userId") long userId) {
-		logger.info("getUserInfo().."+userId);
 		return ResponseEntity.ok().build();
 	}
 	
@@ -44,10 +43,7 @@ public class UsersController {
 		return null;
 	}
 	
-	@PostMapping("/userSecInfo/")
-	public ResponseEntity<Object> getUserSecurityInfo(@RequestBody String jwtToken){
-		return null;
-	}
+	
 	
 	
 }

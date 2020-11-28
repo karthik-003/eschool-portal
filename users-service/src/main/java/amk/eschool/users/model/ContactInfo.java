@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 public class ContactInfo {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	long ctctId;
 	
 	@Column(name="email")

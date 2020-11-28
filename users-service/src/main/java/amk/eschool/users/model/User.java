@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	long userId;
 	
 	String fullName;
