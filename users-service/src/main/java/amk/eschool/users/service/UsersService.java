@@ -50,6 +50,15 @@ public class UsersService implements UserDetailsService{
 		
 	}
 
+	@Transactional
+	public void approveUser(User usr) {
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
 	private void setDefaults(User usr) {
 		// TODO Auto-generated method stub
 		UserLoginInfo loggedInUser = loadUserByUsername(jwtUtil.extractUsername(JwtUtil.getAccessToken()));
@@ -68,6 +77,7 @@ public class UsersService implements UserDetailsService{
         } 
 		return age;
 	}
+	
 	
 	private void createLoginInfo(User usr){
 		UserLoginInfo loginInfo = new UserLoginInfo(usr);

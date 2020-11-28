@@ -39,5 +39,15 @@ public class UsersController {
 		return ResponseEntity.ok().build();
 	}
 	
+	public ResponseEntity<Object> approveUserCreation(@RequestBody User usr){
+		usrService.approveUser(usr);
+		return null;
+	}
+	
+	@PostMapping("/userSecInfo/")
+	public ResponseEntity<Object> getUserSecurityInfo(@RequestBody String jwtToken){
+		return null;
+	}
+	
 	
 }

@@ -50,6 +50,7 @@ public class UserLoginService implements UserDetailsService{
 		}
 		
 		final UserDetails usrDetails = loadUserByUsername(request.getUserName());
+		logger.info(usrDetails.toString());
 		final String jwt = jwtUtil.generateToken(usrDetails);
 		return new AuthenticationResponse(jwt);
 	}
